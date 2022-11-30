@@ -71,9 +71,9 @@ impl LedgerEthereum {
     /// Gets the account raw publickey info which corresponds to the provided derivation path
     /// details: https://github.com/LedgerHQ/app-ethereum/blob/develop/doc/ethapp.adoc#get-eth-public-address
     pub async fn get_raw_pk(&self) -> Result<Vec<u8>, LedgerError> {
-        let data = APDUData::new(&Self::path_to_bytes(derivation));
+        let data = APDUData::new(&Self::path_to_bytes(&self.derivation));
         let transport = self.transport.lock().await;
-        Self::get_raw_pk_with_path_transport(&transport, derivation).await
+        Self::get_raw_pk_with_path_transport(&transport, &self.derivation).await
     }
 
     async fn get_raw_pk_with_path_transport(
